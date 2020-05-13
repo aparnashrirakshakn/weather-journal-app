@@ -1,0 +1,155 @@
+.journal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    background-color: #037AFB;
+    padding: 1.15rem;
+}
+
+header {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 1200px;
+}
+
+.form-holder {
+    width: 80%;
+}
+
+form {
+    margin-top: 4rem;
+    font-size: larger;
+}
+
+.form-control {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-warning {
+    width: 100%;
+}
+
+.entry-holder {
+    margin: 2rem;
+    padding: 2rem;
+    border-top: 0.05px solid #ffcc09;
+    width: 80%;
+}
+
+.most-recent-entry {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.cloud-container {
+    background-color: #037AFB;
+    height: 100%;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* css for sun taken from https://codepen.io/Benedikte/pen/bIuGr*/
+  .sun-container{
+    height: 200px;
+    background-color: #037AFB;
+    color: #fff;
+    font-size: 3rem;
+    font-weight: bolder;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-right: 0;
+  }
+
+  /* the svg element */
+  .svg-sun{
+    width:150px;
+    height:150px;
+  
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: center center;
+    -ms-transform-origin: center center;
+    transform-origin:50% 50%;
+  
+  -webkit-animation: spin 25s linear infinite, sun-glow 3s 0s linear infinite;
+  -moz-animation: spin 25s linear infinite, sun-glow 3s 0s linear infinite;
+  -o-animation:spin 25s linear infinite, sun-glow 3s 0s linear infinite;
+  -ms-animation: spin 25s linear infinite, sun-glow 3s 0s ease-in-out infinite;
+  animation: spin 25s linear infinite,sun-glow 3s 0s linear infinite;
+  
+  }
+  /* the circle element in the svg itself */
+  #sun{
+    stroke-width:18;
+    stroke-dasharray:2;
+    stroke-dashoffset:2;
+  }
+  /* animation for the sun glowing effect */
+  @-webkit-keyframes sun-glow { 
+      0% { fill: #F7C133; stroke:#F7C133;}
+      50% { fill: #ffcc09; stroke:#ffcc09;}
+      100% { fill: #F7C133; stroke:#F7C133;}
+  }
+  @-moz-keyframes sun-glow { 
+    0% { fill: #F7C133; stroke:#F7C133;}
+    50% { fill: #ffcc09; stroke:#ffcc09;}
+    100% { fill: #F7C133; stroke:#F7C133;}
+  }
+  @-o-keyframes sun-glow { 
+    0% { fill: #F7C133; stroke:#F7C133;}
+    50% { fill: #ffcc09; stroke:#ffcc09;}
+    100% { fill: #F7C133; stroke:#F7C133;}
+  }
+  @-ms-keyframes sun-glow { 
+    0% { fill: #F7C133; stroke:#F7C133;}
+    50% { fill: #ffcc09; stroke:#ffcc09;}
+    100% { fill: #F7C133; stroke:#F7C133;}
+  }
+  @keyframes sun-glow { 
+    0% { fill: #F7C133; stroke:#F7C133;}
+    50% { fill: #ffcc09; stroke:#ffcc09;}
+    100% { fill: #F7C133; stroke:#F7C133;}
+  }
+  
+  /* start spin animation */
+  @-webkit-keyframes spin{
+      100% {
+          -webkit-transform: rotate(360deg);
+      }
+  }
+  @-moz-keyframes spin{
+      100% {
+          -moz-transform: rotate(360deg);
+      }
+  }
+  @-o-keyframes spin{
+      100% {
+          -o-transform: rotate(360deg);
+      }
+  }
+  @-ms-keyframes spin{
+      100% {
+          -ms-transform: rotate(360deg);
+      }
+  }
+  @keyframes spin{
+      100% {
+          transform: rotate(360deg);
+      }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .cloud-container {
+      display: none;
+    }
+  }
