@@ -5,7 +5,7 @@ This is an asynchronous web app that uses Web API and user data to dynamically u
 # Setup
 
 1.  Sign up to create API credentials on  [Open Weather API](https://openweathermap.org/api)  website
-2. Create `weather-service.json` in the `weather-journal-app` directory to contain the following -
+2.  In the `weather-service.json` file in the `weather-journal-app` directory, paste your API key
 
 	```
 	{
