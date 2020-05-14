@@ -13,6 +13,9 @@ const app = express();
 /* Dependencies */
 const bodyParser = require('body-parser');
 
+// require fetch
+const fetch = require("node-fetch");
+
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,7 +29,7 @@ app.use(cors());
 app.use(express.static('website'));
 
 // Spin up the server
-const port = 8000;
+const port = 8040;
 const server = app.listen(port, ()=>{console.log(`running on localhost: ${port}`)})
 
 // Initialize all route with a callback function
@@ -42,9 +45,9 @@ function getProjectData(req, res) {
 app.post('/api/projectData', postProjectData)
 
 // Callback function to complete POST '/'
-function postProjectData(req, res) {
+async function postProjectData(req, res) {
     
-    if(req.body.zip && req.body.feeling){
+    if(req.body.zip && req.body.prediction){
         try {
             const weatherData = await fetchWeatherData(req.body.zip);
 
@@ -68,16 +71,16 @@ function postProjectData(req, res) {
         }
     }
     else {
-        res.send("Please check the values you have entered for Zip and Feeling. Something seems to be wrong!");
+        res.send("Please check the values you have entered for Zip and Prediction. Something seems to be wrong!");
     }
-    data.push(req.body);
+    
 }
 
 // Fetch weather data from OpenWeatherAPI
 async function fetchWeatherData(zip) {
 
     try {
-        const response = await fetch(`${openWeatherAPI.baseUrl}q=${zip}&appid=${openWeatherAPI.apiKey}`);
+        const response = await fetch(`${openWeatherAPI.baseUrl}q=${zip}&appid=${openWeatherAPI.apikey}`);
         const weatherData = await response.json();
         return weatherData;
     }
