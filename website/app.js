@@ -4,12 +4,19 @@
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
+// Get the Weather API
+const openWeatherAPI = {
+    "baseUrl": "https://api.openweathermap.org/data/2.5/weather?",
+    "apiKey": "<Your API Key Here>",
+    "options": "&units=imperial"
+};
+
 // Update the UI with project data
 async function UpdateUI() {
     try {
         // clear entered data
-        document.querySelector("#txt-zipCode").value = "";
-        document.querySelector("#txtarea-prediction").value = "";
+        document.querySelector("#zip").value = "";
+        document.querySelector("#feelings").value = "";
 
         // get the project data
         const data = await getProjectData();
@@ -33,7 +40,7 @@ function createLogEntry(data) {
 
     const temperature = document.createElement("div");
     temperature.id = "temp";
-    temperature.innerHTML = `<span><strong>Min Temp: </strong>${data.temperature.temp_min} K, <strong>Max Temp: </strong>${data.temperature.temp_max} K</span>`;
+    temperature.innerHTML = `<span>Imperial Units <br><strong>Min Temp: </strong>${data.temperature.temp_min}, <strong>Max Temp: </strong>${data.temperature.temp_max}</span>`;
 
     const weather = document.createElement("div");
     weather.id = "content";
@@ -61,15 +68,40 @@ async function getProjectData () {
   };
   
 
+// Fetch weather data from OpenWeatherAPI
+async function fetchWeatherData(zip) {
+
+    try {
+        const url = `${openWeatherAPI.baseUrl}q=${zip}&appid=${openWeatherAPI.apiKey}${openWeatherAPI.options}`;
+        const response = await fetch(url);
+        const weatherData = await response.json();
+        return weatherData;
+    }
+    catch (error) {
+        console.log(`An error occurred while fetching the weather data. Please retry again. ${error}`)
+    }
+
+};
+
 // Post project data
 async function postProjectData() {
 
     const postData = {
-        zip: document.querySelector("#txt-zipCode").value,
-        prediction: document.querySelector("#txtarea-prediction").value
+        zip: document.querySelector("#zip").value,
+        prediction: document.querySelector("#feelings").value
     };
 
     if(postData.zip && postData.prediction){
+
+        const weatherData = await fetchWeatherData(postData.zip);
+
+        const projectData = {
+            zip: postData.zip,
+            prediction: postData.prediction,
+            temperature: weatherData.main,
+            weather: weatherData.weather
+        };
+
         try{
             const url = "/api/projectData";
 
@@ -80,7 +112,7 @@ async function postProjectData() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(postData) 
+                body: JSON.stringify(projectData) 
             });
             
             await UpdateUI();
@@ -96,7 +128,12 @@ async function postProjectData() {
 }
 
 // Execute when Generate button is clicked
-function onGenerateButtonClick(e) {
-    e.preventDefault();
-    setTimeout(postProjectData,0);
-}
+function onGenerateButtonClickEvent() {
+    const button = document.querySelector("#generate");
+    button.addEventListener("click", function (e) { 
+        e.preventDefault();
+        postProjectData();
+    });
+  };
+  
+  onGenerateButtonClickEvent();

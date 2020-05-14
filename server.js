@@ -1,9 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 projectData = {}
 
-// Get the Weather API
-const openWeatherAPI = require('./weather-service.json');
-
 // Express to run server and routes
 const express = require('express');
 
@@ -45,22 +42,11 @@ function getProjectData(req, res) {
 app.post('/api/projectData', postProjectData)
 
 // Callback function to complete POST '/'
-async function postProjectData(req, res) {
+function postProjectData(req, res) {
     
     if(req.body.zip && req.body.prediction){
         try {
-            const weatherData = await fetchWeatherData(req.body.zip);
-
-            const temperature = weatherData.main;
-
-            const weather = weatherData.weather;
-    
-            projectData = {
-                zip: req.body.zip,
-                prediction: req.body.prediction,
-                temperature: temperature,
-                weather: weather
-            };
+            this.projectData = req.body;
             
             console.log(projectData);
             res.send(projectData);
@@ -75,17 +61,3 @@ async function postProjectData(req, res) {
     }
     
 }
-
-// Fetch weather data from OpenWeatherAPI
-async function fetchWeatherData(zip) {
-
-    try {
-        const response = await fetch(`${openWeatherAPI.baseUrl}q=${zip}&appid=${openWeatherAPI.apikey}`);
-        const weatherData = await response.json();
-        return weatherData;
-    }
-    catch (error) {
-        console.log(`An error occurred while fetching the weather data. Please retry again. ${error}`)
-    }
-
-};
