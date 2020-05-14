@@ -5,12 +5,13 @@ This is an asynchronous web app that uses Web API and user data to dynamically u
 # Setup
 
 1.  Sign up to create API credentials on  [Open Weather API](https://openweathermap.org/api)  website
-2.  In the `weather-service.json` file in the `weather-journal-app` directory, paste your API key
+2.  In the app.js file, paste your API key as the value for apiKey
 
 	```
 	{
-		"apikey": "<YOUR_API_KEY_HERE>",
-		"baseUrl": "https://api.openweathermap.org/data/2.5/weather?"
+		"baseUrl": "https://api.openweathermap.org/data/2.5/weather?",
+	        "apiKey": "<Your API Key Here>",
+	        "options": "&units=imperial"
 	}
 
 # Run
